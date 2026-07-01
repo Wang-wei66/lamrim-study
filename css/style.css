@@ -312,98 +312,141 @@ body {
   display: none;
 }
 
-/* ---------- 科判树节点样式 ---------- */
-.toc-node {
-  position: relative;
+/* ---------- 左侧目录样式（重新设计版） ---------- */
+
+/* 目录路径卡片 */
+.toc-path-card {
+  margin-bottom: 4px;
 }
 
-.toc-node-header {
+.toc-path-header {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 7px 12px 7px;
-  cursor: pointer;
-  font-size: 13px;
-  line-height: 1.4;
-  transition: background 0.15s;
-  border-left: 3px solid transparent;
-}
-.toc-node-header:hover {
-  background: rgba(184, 134, 11, 0.06);
-}
-.toc-node-header.active {
-  background: rgba(184, 134, 11, 0.1);
-  border-left-color: var(--accent-gold);
-  font-weight: 600;
+  gap: 8px;
+  padding: 10px 12px;
+  border-left: 4px solid;
+  font-size: 15px;
+  cursor: default;
+  background: rgba(184, 134, 11, 0.04);
+  border-bottom: 1px solid var(--border-light);
 }
 
-.toc-toggle {
-  width: 16px;
-  height: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  color: var(--text-muted);
+.toc-path-icon {
+  font-size: 18px;
   flex-shrink: 0;
-  transition: transform 0.2s;
-}
-.toc-node.open > .toc-node-header .toc-toggle {
-  transform: rotate(90deg);
-}
-.toc-node.leaf > .toc-node-header .toc-toggle {
-  visibility: hidden;
 }
 
-.toc-number {
+.toc-path-title {
+  font-weight: 700;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+.toc-path-desc {
   font-size: 11px;
-  font-weight: 600;
-  flex-shrink: 0;
-  min-width: 28px;
-}
-
-.toc-title {
+  color: var(--text-muted);
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  margin-left: 4px;
 }
 
-.toc-status {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
+.toc-path-content {
+  padding: 0 0 4px 0;
+}
+
+/* 目录条目 */
+.toc-dir-item {
+  position: relative;
+}
+
+.toc-dir-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1.35;
+  transition: background 0.15s;
+  border-left: 3px solid transparent;
+}
+.toc-dir-row:hover {
+  background: rgba(184, 134, 11, 0.08);
+}
+.toc-dir-row.active {
+  background: rgba(184, 134, 11, 0.14);
+  border-left-color: var(--accent-gold);
+}
+
+/* 深度缩进 */
+.toc-dir-row.depth-0 { padding-left: 8px; }
+.toc-dir-row.depth-1 { padding-left: 16px; }
+.toc-dir-row.depth-2 { padding-left: 28px; }
+.toc-dir-row.depth-3 { padding-left: 40px; }
+.toc-dir-row.depth-4 { padding-left: 50px; font-size: 12px; }
+.toc-dir-row.depth-5 { padding-left: 58px; font-size: 12px; }
+
+/* 层级标记 */
+.toc-dir-level {
+  font-size: 10px;
+  font-weight: 600;
   flex-shrink: 0;
+  min-width: 20px;
+  opacity: 0.7;
 }
-.toc-status.done { background: var(--accent-green); }
-.toc-status.doing { background: var(--accent-gold); }
-.toc-status.locked { background: var(--text-muted); opacity: 0.3; }
+.toc-dir-level.level-a { color: var(--level-a); }
+.toc-dir-level.level-b { color: var(--level-b); }
+.toc-dir-level.level-c { color: var(--level-c); }
+.toc-dir-level.level-d { color: var(--level-d); }
+.toc-dir-level.level-e { color: var(--level-e); }
+.toc-dir-level.level-f { color: var(--level-f, #c62828); }
+.toc-dir-level.level-g { color: var(--level-g, #ad1457); }
+.toc-dir-level.level-h,
+.toc-dir-level.level-i,
+.toc-dir-level.level-j,
+.toc-dir-level.level-k,
+.toc-dir-level.level-l,
+.toc-dir-level.level-m,
+.toc-dir-level.level-n,
+.toc-dir-level.level-o,
+.toc-dir-level.level-p,
+.toc-dir-level.level-q,
+.toc-dir-level.level-r,
+.toc-dir-level.level-s,
+.toc-dir-level.level-t,
+.toc-dir-level.level-u,
+.toc-dir-level.level-v { color: var(--level-h, #5d4037); opacity: 0.5; font-size: 9px; }
 
-/* 层级颜色 */
-.toc-level-a .toc-number { color: var(--level-a); }
-.toc-level-b .toc-number { color: var(--level-b); }
-.toc-level-c .toc-number { color: var(--level-c); }
-.toc-level-d .toc-number { color: var(--level-d); }
-.toc-level-e .toc-number { color: var(--level-e); }
-.toc-level-f .toc-number { color: var(--level-f, #c62828); }
-.toc-level-g .toc-number { color: var(--level-g, #ad1457); }
-.toc-level-h .toc-number { color: var(--level-h, #7b1fa2); }
-
-.toc-level-a > .toc-node-header { font-weight: 700; font-size: 14px; }
-.toc-level-b > .toc-node-header { font-weight: 600; }
-.toc-level-c > .toc-node-header { font-weight: 500; }
-.toc-level-d > .toc-node-header { font-weight: 400; font-size: 13px; }
-.toc-level-e > .toc-node-header { font-weight: 400; font-size: 13px; }
-.toc-level-f > .toc-node-header,
-.toc-level-g > .toc-node-header,
-.toc-level-h > .toc-node-header { font-weight: 400; font-size: 12px; }
-
-.toc-children {
-  display: none;
-  padding-left: 16px;
+/* 目录标题 */
+.toc-dir-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-primary);
 }
-.toc-node.open > .toc-children {
-  display: block;
+
+/* 进度标记 */
+.toc-dir-progress {
+  font-size: 10px;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+.toc-dir-progress.done { color: var(--accent-green); opacity: 1; }
+.toc-dir-progress.doing { color: var(--accent-gold); opacity: 1; }
+.toc-dir-progress.locked { color: var(--text-muted); opacity: 0.3; }
+
+/* 子节点容器 */
+.toc-dir-children {
+  /* 全部展开，不需要折叠 */
+}
+
+/* 搜索匹配高亮 */
+.toc-dir-item.search-match .toc-dir-title {
+  color: var(--accent-red);
+  font-weight: 600;
 }
 
 /* ---------- 右侧内容区 ---------- */
