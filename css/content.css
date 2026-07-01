@@ -1,0 +1,676 @@
+/* ============================================
+   菩提道次第广论 - 内容阅读样式
+   颜色体系、阅读体验
+   ============================================ */
+
+/* ---------- 阅读容器 ---------- */
+.reader-container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+
+/* ---------- 章节头部 ---------- */
+.reader-chapter-header {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--border);
+}
+
+.rch-number {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-gold);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.rch-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.4;
+  margin-bottom: 12px;
+  font-family: var(--font-content);
+}
+
+.rch-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.rch-summary {
+  margin-top: 16px;
+  background: linear-gradient(135deg, #fff8e1, #fffde7);
+  border-left: 3px solid var(--accent-gold);
+  padding: 14px 16px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+[data-theme="dark"] .rch-summary {
+  background: linear-gradient(135deg, #2a2518, #242018);
+}
+
+/* ---------- 内容块 ---------- */
+
+/* 标题（各级科判） */
+.content-heading {
+  margin-top: 28px;
+  margin-bottom: 14px;
+  font-family: var(--font-content);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.content-heading.level-a {
+  font-size: 22px;
+  color: var(--level-a);
+  border-bottom: 2px solid var(--level-a);
+  padding-bottom: 8px;
+}
+
+.content-heading.level-b {
+  font-size: 19px;
+  color: var(--level-b);
+  border-bottom: 1px solid var(--level-b);
+  opacity: 0.3;
+  padding-bottom: 6px;
+}
+
+.content-heading.level-c {
+  font-size: 17px;
+  color: var(--level-c);
+}
+
+.content-heading.level-d {
+  font-size: 15px;
+  color: var(--level-d);
+}
+
+.content-heading.level-e {
+  font-size: 14px;
+  color: var(--level-e);
+  font-weight: 500;
+}
+
+/* 段落文字 */
+.content-paragraph {
+  font-size: 15px;
+  line-height: 2;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+  text-align: justify;
+  font-family: var(--font-content);
+}
+
+/* 重点内容块 */
+.content-key-point {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent-red);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 14px 18px;
+  margin: 16px 0;
+  font-size: 14px;
+  line-height: 1.8;
+  box-shadow: var(--shadow);
+}
+
+.content-key-point .kp-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent-red);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+/* 善法/正面内容 */
+.content-good-point {
+  background: linear-gradient(135deg, #f1f8e9, #e8f5e9);
+  border-left: 4px solid var(--good);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 14px 18px;
+  margin: 16px 0;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+[data-theme="dark"] .content-good-point {
+  background: linear-gradient(135deg, #1a2e1a, #1e2a1e);
+}
+
+/* 恶法/警示内容 */
+.content-warning-point {
+  background: linear-gradient(135deg, #fbe9e7, #fce4ec);
+  border-left: 4px solid var(--bad);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 14px 18px;
+  margin: 16px 0;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+[data-theme="dark"] .content-warning-point {
+  background: linear-gradient(135deg, #2e1a1a, #2a1e1e);
+}
+
+/* 引用经文 */
+.content-quote {
+  background: #f5f0fa;
+  border-left: 4px solid var(--quote);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 14px 18px;
+  margin: 16px 0;
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--quote);
+}
+
+[data-theme="dark"] .content-quote {
+  background: #1e1828;
+}
+
+/* 法师开示/白话解释 */
+.content-teaching {
+  background: #fdf6ee;
+  border: 1px dashed var(--teach);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin: 16px 0;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+.content-teaching .teach-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--teach);
+  margin-bottom: 6px;
+}
+
+[data-theme="dark"] .content-teaching {
+  background: #2a2418;
+}
+
+/* ---------- 术语高亮和解释 ---------- */
+.term-highlight {
+  color: var(--accent-gold);
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 1px dotted var(--accent-gold);
+  position: relative;
+}
+
+.term-highlight:hover {
+  background: rgba(184, 134, 11, 0.1);
+}
+
+.term-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  line-height: 1.6;
+  max-width: 260px;
+  z-index: 50;
+  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  white-space: normal;
+}
+.term-highlight:hover .term-tooltip {
+  opacity: 1;
+}
+
+/* ---------- 思惟引导 ---------- */
+.content-reflection {
+  background: linear-gradient(135deg, #e3f2fd, #e8eaf6);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin: 20px 0;
+  border-left: 4px solid var(--accent-blue);
+}
+.content-reflection .reflection-icon {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+.content-reflection .reflection-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-style: italic;
+}
+
+[data-theme="dark"] .content-reflection {
+  background: linear-gradient(135deg, #1a2030, #1e2028);
+}
+
+/* ---------- 分点列表 ---------- */
+.content-list {
+  margin: 12px 0;
+  padding-left: 20px;
+}
+
+.content-list-item {
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--text-primary);
+  position: relative;
+  padding-left: 8px;
+  margin-bottom: 6px;
+}
+
+.content-list-item::marker {
+  color: var(--accent-gold);
+}
+
+/* ---------- 阅读操作栏 ---------- */
+.reader-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.reader-nav-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.reader-status-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-done {
+  background: var(--accent-green);
+  color: #fff;
+}
+.btn-done.active {
+  background: var(--accent-gold);
+}
+
+/* ---------- 考试页面 ---------- */
+.exam-container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+
+.exam-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.exam-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.exam-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* 答题卡 */
+.exam-progress-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.exam-progress-track {
+  flex: 1;
+  height: 6px;
+  background: var(--bg-secondary);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.exam-progress-fill {
+  height: 100%;
+  background: var(--accent-green);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.exam-progress-text {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* 题目卡片 */
+.exam-question-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+
+.eq-number {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.eq-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.eq-difficulty {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  margin-bottom: 12px;
+}
+.eq-difficulty.easy { background: #e8f5e9; color: var(--good); }
+.eq-difficulty.medium { background: #fff3e0; color: var(--accent-gold); }
+.eq-difficulty.hard { background: #fce4ec; color: var(--accent-red); }
+
+/* 选项 */
+.eq-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.eq-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.eq-option:hover {
+  background: var(--bg-secondary);
+  border-color: var(--accent-gold);
+}
+.eq-option.selected {
+  background: rgba(184, 134, 11, 0.08);
+  border-color: var(--accent-gold);
+}
+.eq-option.correct {
+  background: #e8f5e9;
+  border-color: var(--good);
+}
+.eq-option.wrong {
+  background: #fce4ec;
+  border-color: var(--accent-red);
+}
+
+.eq-option-marker {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+.eq-option.selected .eq-option-marker {
+  background: var(--accent-gold);
+  color: #fff;
+}
+
+/* 解析 */
+.exam-result {
+  background: var(--bg-secondary);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-top: 16px;
+}
+
+.er-label {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.er-label.correct { color: var(--good); }
+.er-label.wrong { color: var(--accent-red); }
+
+.er-text {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* 考试结果页 */
+.exam-result-page {
+  text-align: center;
+  padding: 40px 24px;
+}
+
+.er-score {
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin-bottom: 8px;
+}
+
+.er-grade {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+.er-grade.pass { color: var(--good); }
+.er-grade.fail { color: var(--accent-red); }
+
+/* ---------- 积分成就 ---------- */
+.points-container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+
+.points-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.points-total {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin-bottom: 4px;
+}
+
+.points-label {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* 成就网格 */
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.achievement-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+  transition: all 0.2s;
+}
+.achievement-card.unlocked {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 0 1px var(--accent-gold);
+}
+.achievement-card.locked {
+  opacity: 0.4;
+  filter: grayscale(1);
+}
+
+.achievement-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.achievement-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.achievement-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ---------- 个人中心 ---------- */
+.profile-container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+
+.profile-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+
+.profile-section-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 错题本 */
+.wrong-questions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.wq-item {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wq-question {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.wq-actions {
+  display: flex;
+  gap: 6px;
+}
+
+/* ---------- 动画 ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* ---------- 滚动条美化 ---------- */
+.content-area::-webkit-scrollbar,
+.toc-tree::-webkit-scrollbar {
+  width: 6px;
+}
+
+.content-area::-webkit-scrollbar-track,
+.toc-tree::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.content-area::-webkit-scrollbar-thumb,
+.toc-tree::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+.content-area::-webkit-scrollbar-thumb:hover,
+.toc-tree::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ---------- 打印样式 ---------- */
+@media print {
+  #header, #footer, .sidebar, .reader-actions {
+    display: none !important;
+  }
+  .content-area {
+    overflow: visible !important;
+  }
+  .reader-container {
+    max-width: 100%;
+    padding: 0;
+  }
+}

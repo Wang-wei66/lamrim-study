@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>菩提道次第广论 - 交互式学习网站</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/content.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪷</text></svg>">
+</head>
+<body>
+  <div id="app">
+
+    <!-- 顶部导航栏 -->
+    <header id="header">
+      <div class="header-left">
+        <button class="menu-toggle" id="menu-toggle" aria-label="切换目录">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="header-logo">
+          <span class="logo-icon">🪷</span>
+          <span class="logo-text">菩提道次第广论</span>
+        </div>
+      </div>
+      <div class="header-center">
+        <div class="header-progress">
+          <span class="progress-text" id="progress-text">学习进度 0%</span>
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="header-btn" id="btn-points" title="积分">
+          <span class="btn-icon">⭐</span>
+          <span class="btn-label" id="points-value">0</span>
+        </button>
+        <button class="header-btn" id="btn-profile" title="个人中心">
+          <span class="btn-icon">👤</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- 主体区域：左侧目录 + 右侧内容 -->
+    <main id="main-layout">
+
+      <!-- 左侧：科判目录树 -->
+      <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+          <h3>科判目录</h3>
+          <button class="sidebar-close" id="sidebar-close" aria-label="关闭目录">✕</button>
+        </div>
+        <div class="sidebar-search">
+          <input type="text" id="search-input" placeholder="搜索章节..." class="search-input">
+        </div>
+        <div class="toc-tree" id="toc-tree">
+          <!-- 科判树由 JS 动态渲染 -->
+        </div>
+        <div class="sidebar-stats">
+          <div class="stat-item">
+            <span class="stat-label">已完成</span>
+            <span class="stat-value" id="completed-count">0</span>
+            <span class="stat-sep">/</span>
+            <span class="stat-total" id="total-count">0</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- 侧栏遮罩（移动端） -->
+      <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+      <!-- 右侧：内容区 -->
+      <div id="content-area" class="content-area">
+
+        <!-- 欢迎页 -->
+        <section id="page-welcome" class="page active">
+          <div class="welcome">
+            <div class="welcome-hero">
+              <div class="welcome-lotus animate-float">🪷</div>
+              <h1 class="welcome-title">菩提道次第广论</h1>
+              <p class="welcome-subtitle">宗喀巴大师 造 · 法尊法师 译</p>
+              <p class="welcome-desc">
+                从凡夫到成佛的完整修行地图<br>
+                依此修行，决定不虚
+              </p>
+            </div>
+            <div class="welcome-actions">
+              <button class="btn btn-primary btn-lg" id="btn-start-study">
+                开始学习
+              </button>
+              <button class="btn btn-secondary" id="btn-take-exam">
+                参加考试
+              </button>
+            </div>
+            <div class="welcome-features">
+              <div class="feature-card">
+                <span class="feature-icon">📖</span>
+                <span class="feature-name">完整科判</span>
+                <span class="feature-desc">全文覆盖，结构清晰</span>
+              </div>
+              <div class="feature-card">
+                <span class="feature-icon">🎨</span>
+                <span class="feature-name">颜色区分</span>
+                <span class="feature-desc">层级分明，一目了然</span>
+              </div>
+              <div class="feature-card">
+                <span class="feature-icon">✍️</span>
+                <span class="feature-name">考试测试</span>
+                <span class="feature-desc">检验掌握，巩固学习</span>
+              </div>
+              <div class="feature-card">
+                <span class="feature-icon">🏆</span>
+                <span class="feature-name">积分成就</span>
+                <span class="feature-desc">激励学习，见证成长</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 内容阅读页 -->
+        <section id="page-reader" class="page">
+          <div class="reader-container" id="reader-container">
+            <!-- 由 reader.js 动态渲染 -->
+          </div>
+        </section>
+
+        <!-- 考试页面 -->
+        <section id="page-exam" class="page">
+          <div class="exam-container" id="exam-container">
+            <!-- 由 exam.js 动态渲染 -->
+          </div>
+        </section>
+
+        <!-- 进度页面 -->
+        <section id="page-progress" class="page">
+          <div class="progress-container" id="progress-container">
+            <!-- 由 progress.js 动态渲染 -->
+          </div>
+        </section>
+
+        <!-- 积分成就页面 -->
+        <section id="page-points" class="page">
+          <div class="points-container" id="points-container">
+            <!-- 由 points.js 动态渲染 -->
+          </div>
+        </section>
+
+        <!-- 个人中心页面 -->
+        <section id="page-profile" class="page">
+          <div class="profile-container" id="profile-container">
+            <!-- 由 profile.js 动态渲染 -->
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- 底部播放条（可选：诵读音频） -->
+    <footer id="footer" class="footer">
+      <div class="footer-stats">
+        <span class="footer-stat">
+          <span class="fs-icon">⭐</span>
+          <span id="footer-points">0</span> 积分
+        </span>
+        <span class="footer-stat">
+          <span class="fs-icon">📚</span>
+          <span id="footer-chapters">0</span> 章节已学
+        </span>
+        <span class="footer-stat">
+          <span class="fs-icon">✅</span>
+          <span id="footer-exams">0</span> 考试通过
+        </span>
+      </div>
+    </footer>
+
+    <!-- 弹窗容器 -->
+    <div id="modal-container" class="modal-container hidden">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <button class="modal-close" id="modal-close" aria-label="关闭">✕</button>
+        <div class="modal-body" id="modal-body"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
