@@ -67,30 +67,33 @@ function onTocNodeClick(nodeId) {
   updateUIStats();
 }
 
-// 获取所有叶子节点的扁平列表
-function getLeafNodes(node = structureData) {
-  const leaves = [];
+// 获取所有有内容节点的扁平列表（按树遍历顺序，包含非叶子节点）
+function getAllContentNodes(node = structureData) {
+  const nodes = [];
   function traverse(n) {
-    if (!n.children || n.children.length === 0) {
-      if (n.id !== 'root') leaves.push(n);
-    } else {
+    if (n.id !== 'root') {
+      // 检查该节点是否有内容数据（lamrim-content.js 中已定义）
+      // 所有科判节点都应该可以点击查看，不仅仅是叶子节点
+      nodes.push(n);
+    }
+    if (n.children && n.children.length) {
       n.children.forEach(traverse);
     }
   }
   traverse(node);
-  return leaves;
+  return nodes;
 }
 
-const leafNodes = getLeafNodes();
+const allContentNodes = getAllContentNodes();
 
 function getPrevNode(nodeId) {
-  const idx = leafNodes.findIndex(n => n.id === nodeId);
-  return idx > 0 ? leafNodes[idx - 1].id : null;
+  const idx = allContentNodes.findIndex(n => n.id === nodeId);
+  return idx > 0 ? allContentNodes[idx - 1].id : null;
 }
 
 function getNextNode(nodeId) {
-  const idx = leafNodes.findIndex(n => n.id === nodeId);
-  return idx < leafNodes.length - 1 ? leafNodes[idx + 1].id : null;
+  const idx = allContentNodes.findIndex(n => n.id === nodeId);
+  return idx < allContentNodes.length - 1 ? allContentNodes[idx + 1].id : null;
 }
 
 // ---------- 全局统计更新 ----------
@@ -112,7 +115,7 @@ function updateUIStats() {
   footerExams.textContent = passed;
 
   completedCount.textContent = completed;
-  totalCount.textContent = leafNodes.length;
+  totalCount.textContent = allContentNodes.length;
 }
 
 // ---------- 弹窗 ----------
@@ -163,10 +166,10 @@ searchInput?.addEventListener('input', (e) => {
 
 // ---------- 欢迎页按钮 ----------
 document.getElementById('btn-start-study')?.addEventListener('click', () => {
-  // 找到第一个叶子节点
-  if (leafNodes.length > 0) {
-    onTocNodeClick(leafNodes[0].id);
-    expandToNode(leafNodes[0].id);
+  // 找到第一个有内容的节点
+  if (allContentNodes.length > 0) {
+    onTocNodeClick(allContentNodes[0].id);
+    expandToNode(allContentNodes[0].id);
   }
 });
 
@@ -196,18 +199,18 @@ document.querySelector('.welcome-features')?.addEventListener('click', (e) => {
   const card = e.target.closest('.feature-card');
   if (!card) return;
   const name = card.querySelector('.feature-name')?.textContent;
-  if (name === '完整科判' && leafNodes.length > 0) {
-    onTocNodeClick(leafNodes[0].id);
-    expandToNode(leafNodes[0].id);
+  if (name === '完整科判' && allContentNodes.length > 0) {
+    onTocNodeClick(allContentNodes[0].id);
+    expandToNode(allContentNodes[0].id);
   } else if (name === '考试测试') {
     showPage('exam');
     renderExam(examContainer, currentNodeId || null);
   } else if (name === '积分成就') {
     showPage('points');
     renderPoints(pointsContainer);
-  } else if (name === '颜色区分' && leafNodes.length > 0) {
-    onTocNodeClick(leafNodes[0].id);
-    expandToNode(leafNodes[0].id);
+  } else if (name === '颜色区分' && allContentNodes.length > 0) {
+    onTocNodeClick(allContentNodes[0].id);
+    expandToNode(allContentNodes[0].id);
   }
 });
 
@@ -253,7 +256,7 @@ function init() {
   studyState.checkin();
 
   console.log('🪷 菩提道次第广论学习网站已就绪');
-  console.log(`   共 ${leafNodes.length} 个学习节点`);
+  console.log(`   共 ${allContentNodes.length} 个学习节点`);
   console.log(`   积分: ${studyState.getPoints()} | 等级: ${studyState.getLevel().name}`);
 
   // 监听页面切换时保存

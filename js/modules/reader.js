@@ -83,6 +83,21 @@ export function renderContent(container, nodeId, options = {}) {
 
   const data = LAMRIM_CONTENT[nodeId];
 
+  // ── 返回按钮 ──────────────────────────────────────────
+  const backBtn = document.createElement('button');
+  backBtn.className = 'btn btn-ghost btn-sm reader-back-btn';
+  backBtn.textContent = '← 返回目录';
+  backBtn.style.cssText = 'margin-bottom: 16px;';
+  backBtn.addEventListener('click', () => {
+    const welcomePage = document.getElementById('page-welcome');
+    const readerPage = document.getElementById('page-reader');
+    if (welcomePage && readerPage) {
+      readerPage.classList.remove('active');
+      welcomePage.classList.add('active');
+    }
+  });
+  container.appendChild(backBtn);
+
   // ── 章节头部 ────────────────────────────────────────
   const headerEl = document.createElement('div');
   headerEl.className = 'reader-chapter-header';
