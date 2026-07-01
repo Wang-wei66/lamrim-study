@@ -97,10 +97,16 @@ export function renderToc(container, onNodeClick) {
 function _renderNode(node, onNodeClick, depth) {
   if (!node || !node.id) return null;
 
-  // 用 CSS 类 toc-level-a ~ toc-level-e
-  // 映射：甲→a, 乙→b, 丙→c, 丁→d, 戊→e
-  const levelMap = { '甲': 'a', '乙': 'b', '丙': 'c', '丁': 'd', '戊': 'e' };
-  const levelClass = 'toc-level-' + (levelMap[node.level] || 'a');
+  // 用 CSS 类 toc-level-a ~ toc-level-h (支持8层，超过的复用 toc-level-h)
+  // 映射：甲→a, 乙→b, 丙→c, 丁→d, 戊→e, 己→f, 庚→g, 辛→h, 壬→h, 癸→h, ...
+  const levelMap = { 
+    '甲': 'a', '乙': 'b', '丙': 'c', '丁': 'd', '戊': 'e',
+    '己': 'f', '庚': 'g', '辛': 'h', '壬': 'h', '癸': 'h',
+    '子': 'h', '丑': 'h', '寅': 'h', '卯': 'h', '辰': 'h',
+    '巳': 'h', '午': 'h', '未': 'h', '申': 'h', '酉': 'h',
+    '戌': 'h', '亥': 'h'
+  };
+  const levelClass = 'toc-level-' + (levelMap[node.level] || 'h');
 
   const wrapper = document.createElement('div');
   wrapper.className = `toc-node ${levelClass}`;
@@ -150,12 +156,10 @@ function _renderNode(node, onNodeClick, depth) {
   }
   wrapper.appendChild(childrenWrap);
 
-  // 默认展开：根节点（depth=0）和第一级（depth=1）
-  if (depth <= 1) {
-    _setExpanded(wrapper, true);
-  } else {
-    _setExpanded(wrapper, false);
-  }
+  // 默认展开策略：《广论》科判结构很深（21层），
+  // 默认全部展开，让用户能完整看到科判树
+  // 用户可以通过点击节点来折叠/展开
+  _setExpanded(wrapper, true);
 
   // 点击 header → 切换展开/折叠
   header.addEventListener('click', (e) => {

@@ -23,6 +23,9 @@
   --level-c: #2E7D32;      /* 丙 - 深绿 */
   --level-d: #1565C0;      /* 丁 - 深蓝 */
   --level-e: #6A1B9A;      /* 戊 - 深紫 */
+  --level-f: #c62828;      /* 己 - 红 */
+  --level-g: #ad1457;      /* 庚 - 玫红 */
+  --level-h: #7b1fa2;      /* 辛及更深 - 紫 */
 
   /* 强调色 */
   --accent-red: #c75b39;
@@ -382,10 +385,18 @@ body {
 .toc-level-c .toc-number { color: var(--level-c); }
 .toc-level-d .toc-number { color: var(--level-d); }
 .toc-level-e .toc-number { color: var(--level-e); }
+.toc-level-f .toc-number { color: var(--level-f, #c62828); }
+.toc-level-g .toc-number { color: var(--level-g, #ad1457); }
+.toc-level-h .toc-number { color: var(--level-h, #7b1fa2); }
 
 .toc-level-a > .toc-node-header { font-weight: 700; font-size: 14px; }
 .toc-level-b > .toc-node-header { font-weight: 600; }
 .toc-level-c > .toc-node-header { font-weight: 500; }
+.toc-level-d > .toc-node-header { font-weight: 400; font-size: 13px; }
+.toc-level-e > .toc-node-header { font-weight: 400; font-size: 13px; }
+.toc-level-f > .toc-node-header,
+.toc-level-g > .toc-node-header,
+.toc-level-h > .toc-node-header { font-weight: 400; font-size: 12px; }
 
 .toc-children {
   display: none;
