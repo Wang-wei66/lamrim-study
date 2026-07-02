@@ -183,6 +183,12 @@ document.getElementById('btn-take-exam')?.addEventListener('click', () => {
   }
 });
 
+// 场景模拟按钮
+document.getElementById('btn-scenario')?.addEventListener('click', () => {
+  showPage('exam');
+  renderExam(examContainer, 'scenario');
+});
+
 // ---------- 顶部按钮 ----------
 document.getElementById('btn-points')?.addEventListener('click', () => {
   showPage('points');

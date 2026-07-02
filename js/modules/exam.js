@@ -13,6 +13,9 @@ const DIFFICULTY_LABELS = { 1: 'easy', 2: 'medium', 3: 'hard' };
 const DIFFICULTY_NAMES = { 1: '基础', 2: '进阶', 3: '深究' };
 
 function _findChapterTitle(chapterId) {
+  // 特殊处理：场景模拟题
+  if (chapterId === 'scenario') return '场景模拟——佛法在现代生活中的应用';
+  
   const flat = _getFlatList();
   const node = flat.find((n) => n.id === chapterId);
   return node ? node.title : chapterId;
