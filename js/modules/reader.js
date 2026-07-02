@@ -429,7 +429,9 @@ function _renderActions(nodeId, { onNavigate, onStartExam }) {
   // 考试按钮
   const examBtn = document.createElement('button');
   examBtn.className = 'reader-btn btn-exam';
-  examBtn.textContent = '参加本章考试';
+  // 检查是否有对应题目
+  const hasDirectQuestions = LAMRIM_CONTENT && window.__examQuestions && window.__examQuestions[nodeId];
+  examBtn.textContent = hasDirectQuestions ? '参加本章考试' : '参加相关章节考试';
   examBtn.addEventListener('click', () => {
     if (typeof onStartExam === 'function') {
       onStartExam(nodeId);

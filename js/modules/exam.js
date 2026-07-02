@@ -21,6 +21,62 @@ function _findChapterTitle(chapterId) {
   return node ? node.title : chapterId;
 }
 
+// 获取节点的所有祖先ID（从根到自身）
+function _getAncestorIds(nodeId) {
+  const flat = _getFlatList();
+  const ids = [];
+  
+  function findPath(nodes, targetId, path) {
+    for (const node of nodes) {
+      const currentPath = [...path, node.id];
+      if (node.id === targetId) {
+        return currentPath;
+      }
+      if (node.children && node.children.length) {
+        const found = findPath(node.children, targetId, currentPath);
+        if (found) return found;
+      }
+    }
+    return null;
+  }
+  
+  const path = findPath(LAMRIM_STRUCTURE.children, nodeId, []);
+  return path || [nodeId];
+}
+
+// 获取节点的所有子孙ID
+function _getDescendantIds(node) {
+  const ids = [];
+  function walk(n) {
+    ids.push(n.id);
+    if (n.children && n.children.length) {
+      n.children.forEach(walk);
+    }
+  }
+  walk(node);
+  return ids;
+}
+
+// 收集与某个节点相关的所有题目（祖先+子孙+自身）
+function _collectRelatedQuestions(nodeId) {
+  const ancestorIds = _getAncestorIds(nodeId);
+  const flat = _getFlatList();
+  const node = flat.find(n => n.id === nodeId);
+  const descendantIds = node ? _getDescendantIds(node) : [];
+  
+  const allRelatedIds = [...new Set([...ancestorIds, ...descendantIds])];
+  const allQuestions = [];
+  
+  for (const rid of allRelatedIds) {
+    if (EXAM_QUESTIONS && EXAM_QUESTIONS[rid]) {
+      allQuestions.push(...EXAM_QUESTIONS[rid]);
+    }
+  }
+  
+  // 随机选最多20道题
+  return _shuffle(allQuestions).slice(0, 20);
+}
+
 let _flatCache = null;
 function _getFlatList() {
   if (_flatCache) return _flatCache;
@@ -76,17 +132,59 @@ function _resetExam(chapterId, questions) {
 // ── 导出入口 ──────────────────────────────────────────
 
 export function renderExam(container, chapterId) {
-  const questions = (EXAM_QUESTIONS && EXAM_QUESTIONS[chapterId]) ? [...EXAM_QUESTIONS[chapterId]] : [];
+  // 查找题目：如果当前章节没有题目，向上查找最近的祖先章节
+  let effectiveChapterId = chapterId;
+  let questions = (EXAM_QUESTIONS && EXAM_QUESTIONS[effectiveChapterId]) ? [...EXAM_QUESTIONS[effectiveChapterId]] : [];
+  
+  // 如果没有题目，尝试找最近的有题目的祖先节点
+  if (questions.length === 0 && chapterId !== 'scenario' && chapterId !== null) {
+    const ancestorIds = _getAncestorIds(chapterId);
+    // 从自身开始向上找
+    for (const aid of ancestorIds) {
+      if (EXAM_QUESTIONS && EXAM_QUESTIONS[aid] && EXAM_QUESTIONS[aid].length > 0) {
+        effectiveChapterId = aid;
+        questions = [...EXAM_QUESTIONS[aid]];
+        break;
+      }
+    }
+  }
+  
+  // 如果还是没题目，尝试找最近的有题目的子孙节点
+  if (questions.length === 0 && chapterId !== 'scenario' && chapterId !== null) {
+    const flat = _getFlatList();
+    const node = flat.find(n => n.id === chapterId);
+    if (node) {
+      const descendantIds = _getDescendantIds(node);
+      for (const did of descendantIds) {
+        if (EXAM_QUESTIONS && EXAM_QUESTIONS[did] && EXAM_QUESTIONS[did].length > 0) {
+          effectiveChapterId = did;
+          questions = [...EXAM_QUESTIONS[did]];
+          break;
+        }
+      }
+    }
+  }
 
-  _resetExam(chapterId, questions);
+  _resetExam(effectiveChapterId, questions);
 
   if (questions.length === 0) {
+    // 如果最终还是没找到题目，尝试收集所有相关题目
+    if (chapterId !== 'scenario' && chapterId !== null) {
+      const relatedQuestions = _collectRelatedQuestions(chapterId);
+      if (relatedQuestions.length > 0) {
+        _resetExam(chapterId, relatedQuestions);
+        _renderExamUI(container);
+        return;
+      }
+    }
+    
     container.innerHTML = `
       <div class="exam-container">
         <div class="exam-result-page">
           <div style="font-size:48px;margin-bottom:16px;">📝</div>
           <h3 style="color:var(--text-muted);margin-bottom:8px;">此章节暂无考试题目</h3>
           <p style="color:var(--text-muted);">敬请期待</p>
+          <button class="btn btn-secondary btn-sm" style="margin-top:16px;" onclick="window.showPage('welcome')">返回首页</button>
         </div>
       </div>
     `;

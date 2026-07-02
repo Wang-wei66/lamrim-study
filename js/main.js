@@ -283,5 +283,6 @@ function init() {
 // 暴露到全局
 window.__studyState = studyState;
 window.__structure = structureData;
+window.__examQuestions = examQuestions;
 
 init();
