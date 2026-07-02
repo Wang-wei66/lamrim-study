@@ -5,6 +5,7 @@
 
 import studyState from './state.js';
 import structureData from './data/lamrim-structure.js';
+import examQuestions from './data/exam-questions.js';
 import { renderToc, updateTocProgress, expandToNode, searchToc } from './modules/toc.js';
 import { renderContent, updateReaderStatus } from './modules/reader.js';
 import { renderExam } from './modules/exam.js';
